@@ -1,0 +1,450 @@
+:root {
+  color: #29261f;
+  background: #f3efe6;
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  font-synthesis: none;
+  --paper: #f3efe6;
+  --paper-deep: #ebe3d5;
+  --ink: #29261f;
+  --muted: #7b7468;
+  --line: #d8cfc0;
+  --accent: #a95f3d;
+  --accent-dark: #7e432d;
+  --sidebar-width: 326px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
+button, a { font: inherit; }
+button { color: inherit; }
+a { color: inherit; }
+
+.loading,
+.error-state {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 24px;
+  text-align: center;
+}
+
+.error-state h1,
+.error-state p { margin: 0; }
+.error-state button {
+  justify-self: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fffaf1;
+  padding: 9px 14px;
+  cursor: pointer;
+}
+
+.reader-shell { min-height: 100dvh; }
+.reader-main {
+  min-height: 100dvh;
+  margin-left: 0;
+  background:
+    radial-gradient(circle at 14% 9%, rgb(255 255 255 / 0.52), transparent 30rem),
+    var(--paper);
+  transition: margin-left 180ms ease, width 180ms ease;
+}
+.reader-shell.sidebar-open .reader-main {
+  width: calc(100% - var(--sidebar-width));
+  margin-left: var(--sidebar-width);
+}
+
+.reader-sidebar {
+  position: fixed;
+  z-index: 30;
+  inset: 0 auto 0 0;
+  width: var(--sidebar-width);
+  overflow-y: auto;
+  background: #eee7dc;
+  border-right: 1px solid var(--line);
+  box-shadow: 12px 0 36px rgb(50 39 27 / 0.08);
+  transform: translateX(-105%);
+  transition: transform 180ms ease;
+}
+.reader-shell.sidebar-open .reader-sidebar { transform: translateX(0); }
+.sidebar-backdrop { display: none; }
+
+.sidebar-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 25px 20px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.sidebar-kicker {
+  margin: 0;
+  color: var(--accent-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+.sidebar-context {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.sidebar-close {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #756b5e;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+}
+.sidebar-close:hover { background: rgb(126 67 45 / 0.08); }
+.sidebar-content { padding: 21px 18px 30px; }
+.sidebar-section-label {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+.work-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 13px 12px;
+  border: 1px solid #d0c5b5;
+  border-radius: 7px;
+  background: #fbf8f1;
+}
+.work-option-mark {
+  padding-top: 2px;
+  color: var(--accent);
+  font-size: 11px;
+}
+.work-option strong {
+  display: block;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.work-option small {
+  display: block;
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.sidebar-description {
+  margin: 13px 2px 0;
+  color: #756d62;
+  font-size: 12px;
+  line-height: 1.75;
+}
+.sidebar-rule {
+  height: 1px;
+  margin: 23px 0 20px;
+  background: var(--line);
+}
+.toc-list { display: grid; gap: 19px; }
+.toc-chapter h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin: 0 0 7px;
+  color: #51483c;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 14px;
+  font-weight: 600;
+}
+.toc-chapter h2 span {
+  color: var(--accent-dark);
+  font-family: ui-sans-serif, sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.toc-episodes { display: grid; gap: 2px; }
+.toc-episode {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 8px 8px;
+  border-radius: 5px;
+  color: #5d554a;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 13px;
+  line-height: 1.45;
+  text-decoration: none;
+}
+.toc-episode:hover { background: rgb(255 255 255 / 0.64); }
+.toc-episode.is-current {
+  background: #fbf8f1;
+  color: var(--accent-dark);
+  font-weight: 700;
+  box-shadow: inset 3px 0 var(--accent);
+}
+.toc-number {
+  min-width: 18px;
+  color: #a49a8c;
+  font-family: ui-sans-serif, sans-serif;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.reader-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 65px;
+  padding: 12px 30px 12px 82px;
+  border-bottom: 1px solid rgb(216 207 192 / 0.72);
+  background: rgb(243 239 230 / 0.88);
+  backdrop-filter: blur(12px);
+}
+.reader-brand {
+  overflow: hidden;
+  color: #554b3e;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.reader-progress {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+.sidebar-toggle {
+  position: fixed;
+  z-index: 40;
+  top: 12px;
+  left: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(126 67 45 / 0.28);
+  border-radius: 50%;
+  background: rgb(255 250 241 / 0.93);
+  color: var(--accent-dark);
+  box-shadow: 0 4px 14px rgb(50 39 27 / 0.1);
+  cursor: pointer;
+  transition: left 180ms ease;
+}
+.sidebar-toggle span { font-size: 21px; line-height: 1; }
+.reader-shell.sidebar-open .sidebar-toggle { left: calc(var(--sidebar-width) + 12px); }
+.progress-track {
+  height: 2px;
+  background: rgb(216 207 192 / 0.5);
+}
+.progress-track span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transition: width 250ms ease;
+}
+
+.reading-frame {
+  width: min(100% - 48px, 790px);
+  margin: 0 auto;
+  padding: 77px 0 74px;
+}
+.episode-heading {
+  padding-bottom: 38px;
+  border-bottom: 1px solid var(--line);
+}
+.chapter-label {
+  margin: 0 0 21px;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.episode-number {
+  margin: 0 0 12px;
+  color: #aaa092;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+}
+.episode-heading h1 {
+  max-width: 690px;
+  margin: 0;
+  color: #2e2a23;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  font-size: clamp(31px, 5vw, 47px);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.35;
+}
+.episode-body {
+  padding: 48px 5px 71px;
+  color: #3a342b;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+}
+.episode-body p {
+  margin: 0;
+  font-size: clamp(16px, 1.9vw, 18px);
+  letter-spacing: 0.035em;
+  line-height: 2.25;
+  text-indent: 1em;
+}
+.episode-body p + p { margin-top: 1.45em; }
+.episode-body h2,
+.episode-body h3 {
+  margin: 2.7em 0 1.15em;
+  color: #514337;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.episode-body h2 { font-size: 23px; }
+.episode-body h3 { font-size: 19px; }
+.episode-body blockquote {
+  margin: 2em 0;
+  padding: 0 0 0 1.2em;
+  border-left: 2px solid var(--accent);
+  color: #665b4e;
+}
+.episode-body a { color: var(--accent-dark); }
+.episode-body code {
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+  background: #e9e0d1;
+  font-family: ui-monospace, monospace;
+  font-size: 0.88em;
+}
+.episode-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.episode-nav-item {
+  display: grid;
+  gap: 8px;
+  min-height: 78px;
+  padding: 14px 15px;
+  border: 1px solid #d7cbbb;
+  border-radius: 6px;
+  background: rgb(255 250 241 / 0.58);
+  color: #6e5d4c;
+  text-decoration: none;
+  transition: border-color 150ms ease, background 150ms ease;
+}
+.episode-nav-item:hover {
+  border-color: var(--accent);
+  background: #fffaf1;
+}
+.episode-nav-item.next { text-align: right; }
+.episode-nav-item span {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+}
+.episode-nav-item strong {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.reader-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 55px;
+  padding-top: 16px;
+  border-top: 1px solid rgb(216 207 192 / 0.65);
+  color: #a2988a;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 3px solid #d57d4c;
+  outline-offset: 3px;
+}
+
+@media (max-width: 899px) {
+  .reader-shell.sidebar-open .reader-main {
+    width: 100%;
+    margin-left: 0;
+  }
+  .reader-sidebar {
+    width: min(86vw, var(--sidebar-width));
+    box-shadow: 14px 0 40px rgb(20 15 10 / 0.18);
+  }
+  .sidebar-backdrop {
+    position: fixed;
+    z-index: 25;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: rgb(35 27 18 / 0.48);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .reader-shell.sidebar-open .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .reader-shell.sidebar-open .sidebar-toggle {
+    left: auto;
+    right: 12px;
+    border-color: rgb(255 250 241 / 0.32);
+    background: rgb(42 31 23 / 0.84);
+    color: #fffaf1;
+  }
+  .reader-header { padding-left: 67px; padding-right: 18px; }
+  .reading-frame {
+    width: min(100% - 34px, 700px);
+    padding-top: 53px;
+  }
+  .episode-body { padding-top: 36px; }
+}
+
+@media (max-width: 560px) {
+  .reader-brand { font-size: 12px; letter-spacing: 0.03em; }
+  .reader-progress { font-size: 10px; }
+  .reading-frame {
+    width: calc(100% - 32px);
+    padding-bottom: 46px;
+  }
+  .episode-heading { padding-bottom: 28px; }
+  .chapter-label { margin-bottom: 16px; font-size: 10px; letter-spacing: 0.07em; }
+  .episode-heading h1 { font-size: 30px; letter-spacing: 0.02em; }
+  .episode-body { padding: 32px 1px 48px; }
+  .episode-body p {
+    font-size: 16px;
+    letter-spacing: 0.015em;
+    line-height: 2.12;
+  }
+  .episode-body p + p { margin-top: 1.25em; }
+  .episode-nav { grid-template-columns: 1fr; }
+  .episode-nav-item.next { text-align: left; }
+  .reader-footer { display: grid; gap: 5px; margin-top: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reader-main,
+  .reader-sidebar,
+  .sidebar-toggle,
+  .progress-track span { transition: none; }
+}
+

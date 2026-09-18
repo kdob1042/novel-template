@@ -1,0 +1,15 @@
+{
+  "name": "novel-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starter kit for a Markdown novel and Cloudflare reader",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-viewer.mjs",
+    "test": "python3 -m unittest discover -s tests"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
+
