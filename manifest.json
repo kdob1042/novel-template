@@ -1,0 +1,54 @@
+{
+  "format": "novel-source/v1",
+  "work": {
+    "title": "作品タイトル",
+    "slug": "novel-slug",
+    "kicker": "NOVEL READER",
+    "description": "作品紹介文をここに書く。"
+  },
+  "chapters": [
+    {
+      "id": "C01",
+      "title": "第1章のタイトル",
+      "episodes": [
+        { "id": "C01-E01", "title": "第1話のタイトル", "path": "manuscript/p01/p01-01.md" },
+        { "id": "C01-E02", "title": "第2話のタイトル", "path": "manuscript/p01/p01-02.md" },
+        { "id": "C01-E03", "title": "第3話のタイトル", "path": "manuscript/p01/p01-03.md" }
+      ]
+    },
+    {
+      "id": "C02",
+      "title": "第2章のタイトル",
+      "episodes": [
+        { "id": "C02-E04", "title": "第4話のタイトル", "path": "manuscript/p02/p02-01.md" },
+        { "id": "C02-E05", "title": "第5話のタイトル", "path": "manuscript/p02/p02-02.md" },
+        { "id": "C02-E06", "title": "第6話のタイトル", "path": "manuscript/p02/p02-03.md" }
+      ]
+    },
+    {
+      "id": "C03",
+      "title": "第3章のタイトル",
+      "episodes": [
+        { "id": "C03-E07", "title": "第7話のタイトル", "path": "manuscript/p03/p03-01.md" },
+        { "id": "C03-E08", "title": "第8話のタイトル", "path": "manuscript/p03/p03-02.md" },
+        { "id": "C03-E09", "title": "第9話のタイトル", "path": "manuscript/p03/p03-03.md" }
+      ]
+    },
+    {
+      "id": "C04",
+      "title": "第4章のタイトル",
+      "episodes": [
+        { "id": "C04-E10", "title": "第10話のタイトル", "path": "manuscript/p04/p04-01.md" },
+        { "id": "C04-E11", "title": "第11話のタイトル", "path": "manuscript/p04/p04-02.md" },
+        { "id": "C04-E12", "title": "第12話のタイトル", "path": "manuscript/p04/p04-03.md" }
+      ]
+    }
+  ],
+  "settings": [
+    { "id": "CHARACTERS", "path": "settings/characters.md" },
+    { "id": "STORY", "path": "settings/story.md" },
+    { "id": "WRITING", "path": "settings/writing.md" },
+    { "id": "PUBLISHING", "path": "settings/publishing.md" }
+  ]
+}
+
